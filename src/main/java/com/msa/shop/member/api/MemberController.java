@@ -1,4 +1,4 @@
-package com.msa.shop.member.adapter;
+package com.msa.shop.member.api;
 
 import com.msa.shop.member.application.MemberService;
 import lombok.RequiredArgsConstructor;
