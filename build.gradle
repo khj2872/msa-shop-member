@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.msa.shop'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '1.8'
 
 configurations {
@@ -17,6 +17,28 @@ configurations {
 
 repositories {
     mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "Hoxton.SR10")
+    set('dockerId', 'khj2872')
+}
+
+jib {
+    from {
+        image = "openjdk:8-jre-alpine"
+    }
+    to {
+        image = "${dockerId}/member:${version}"
+    }
+    container {
+        mainClass = "com.msa.shop.member.MemberApplication"
+        ports = ["8080"]
+        environment = [
+                "JAVA_TOOL_OPTIONS": "-Xms512m -Xmx512m -XX:+UseG1GC",
+                "SPRING_PROFILE_ACTIVE": ""
+        ]
+    }
 }
 
 dependencies {
