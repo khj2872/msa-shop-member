@@ -1,4 +1,4 @@
-package com.msa.shop.member.model;
+package com.msa.shop.member.domain;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
