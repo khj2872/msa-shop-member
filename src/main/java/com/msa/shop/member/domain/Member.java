@@ -1,13 +1,13 @@
 package com.msa.shop.member.domain;
 
-import com.msa.shop.member.model.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.UUID;
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 
 @Entity
 @Getter
@@ -19,22 +19,9 @@ public class Member extends BaseTimeEntity {
 
     private String name;
 
+    private String email;
+
     @Embedded
     private Password password;
 
-    public void initPassword() {
-        String newPassword = generateRandomPassword();
-        this.password = new Password(newPassword);
-    }
-
-    private String generateRandomPassword() {
-        return UUID.randomUUID().toString().replace("-", "");
-    }
-
-    public void changePassword(String oldPassword, String newPassword) {
-        if (!password.match(oldPassword)) {
-            throw new IdPasswordNotMatchingException();
-        }
-        this.password = new Password(newPassword);
-    }
 }

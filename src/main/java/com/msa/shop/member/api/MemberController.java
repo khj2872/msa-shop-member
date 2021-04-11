@@ -1,14 +1,21 @@
 package com.msa.shop.member.api;
 
-import com.msa.shop.member.application.MemberService;
+import com.msa.shop.member.application.MemberRequest;
+import com.msa.shop.member.application.CreateMemberService;
+import com.msa.shop.member.domain.MemberId;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/member")
+@RequestMapping("/members")
 public class MemberController {
-    private final MemberService memberService;
+    private final CreateMemberService createMemberService;
+
+    @PostMapping
+    public String member(@RequestBody MemberRequest memberRequest) {
+        MemberId memberId = createMemberService.createMember(memberRequest);
+        return memberId.getId();
+    }
 
 }
